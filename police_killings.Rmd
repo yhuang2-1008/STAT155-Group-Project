@@ -15,7 +15,10 @@ library(infer)
 theme_set(theme_minimal())
 ```
 
-(@) Brief overview of the data set *police_killings*, *raceethnicity* filled by *gender*. 
+\
+\
+
+(@) Brief overview of the data set *police_killings*, *raceethnicity* filled by *gender*. The graph shows that there is a significantly more males who were killed by police than females. More white males are killed by police, followed by Black males, and Hispanic/Latino males. 
 
 ```{r, warning=FALSE, message=FALSE}
 police_killings %>% 
@@ -25,7 +28,7 @@ police_killings %>%
 
 \
 
-(@) Density plot for *p_income* (tract-level median personal income) and *raceethnicity*. This plot shows 
+(@) Density plot for *p_income* (tract-level median personal income) and *raceethnicity*. This plot shows the median personal income by race. It appears to be that those who identify as Native American have the lowest median. Those who identify as White have the highest median personal income. 
 
 ```{r, warning=FALSE, message=FALSE}
 ggplot(data=police_killings) + 
@@ -34,7 +37,8 @@ ggplot(data=police_killings) +
 
 \
 
-(@) Bar plot of *armed*, how/whether deceased was armed
+(@) Bar plot of *armed*, how/whether deceased was armed. Most people who were killed had firearm on them followed by those who were not armed at all. 
+
 ```{r, warning=FALSE, message=FALSE}
 ggplot(data=police_killings)+
   geom_bar(aes(x=armed), fill="lightblue")
