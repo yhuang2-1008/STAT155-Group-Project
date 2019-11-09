@@ -4,4 +4,49 @@ output:
   html_document: 
     keep_md: yes 
 ---
+```{r, message=FALSE, warning=FALSE}
+library(fivethirtyeight)
+library(tidyverse)
+library(moderndive)
+library(ggplot2)
+library(ggridges)
+library(ggmosaic)
+```
+#Avengers
+
+#Gender VS. First Death
+```{r, message=FALSE, warning=FALSE}
+ggplot(data = avengers) +
+  geom_bar(aes(x = gender, fill = death1))
+```
+```{r}
+avengers %>% 
+  count(gender)
+```
+
+In this graph, Male appear to have more occurences of dying for the first time than females do. The maximum number of males is almost doubled of the number of females. 
+
+
+# Honarary Status VS. Firsh Death
+```{r, message=FALSE, warning=FALSE}
+ggplot(data = avengers) +
+  geom_bar(aes(x = honorary, fill = death1))
+```
+Those who have a full honorary status has high occurence of first death than other categories.
+
+#Gender VS. Honorary Status 
+```{r, message=FALSE, warning=FALSE}
+ggplot(data = avengers) +
+  geom_mosaic(aes(x = product(factor(gender), honorary), fill = factor(gender))) +
+  theme_minimal()
+```
+
+```{r, message=FALSE, warning=FALSE}
+ggplot(data=avengers) +
+  geom_bar(mapping = aes(x=honorary, fill=factor(gender)), position = "dodge") +
+  scale_fill_discrete("Gender") +
+  facet_wrap(~gender, ncol = 1)
+```
+In the full category, males are more represented than females. for probationary, there's only male representitive. Academy has almost even split. For honorary, males has more representitive than female.
+
 
