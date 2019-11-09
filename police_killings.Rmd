@@ -5,6 +5,57 @@ output:
     keep_md: yes
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r, message=FALSE}
+library(fivethirtyeight)
+library(tidyverse)
+library(ggridges)
+library(GGally)
+library(moderndive)
+library(infer)
+theme_set(theme_minimal())
 ```
+
+(@) Brief overview of the data set *police_killings*, *raceethnicity* filled by *gender*. 
+
+```{r, warning=FALSE, message=FALSE}
+police_killings %>% 
+  ggplot()+
+  geom_bar(aes(x=raceethnicity, fill=gender), position="dodge")
+```
+
+\
+
+(@) Density plot for *p_income* (tract-level median personal income) and *raceethnicity*. This plot shows 
+
+```{r, warning=FALSE, message=FALSE}
+ggplot(data=police_killings) + 
+  geom_density_ridges(aes(x=p_income, y=raceethnicity, fill=raceethnicity), alpha=0.25)
+```
+
+\
+
+(@) Bar plot of *armed*, how/whether deceased was armed
+```{r, warning=FALSE, message=FALSE}
+ggplot(data=police_killings)+
+  geom_bar(aes(x=armed), fill="lightblue")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
