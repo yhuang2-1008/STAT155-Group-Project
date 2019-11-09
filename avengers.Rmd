@@ -1,0 +1,6 @@
+---
+title: "GitHub for Collaboration"
+output: 
+  html_document: 
+    keep_md: yes 
+---
