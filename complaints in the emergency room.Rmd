@@ -8,7 +8,9 @@ output:
 ```{r setup, include=FALSE}
 library(faraway)
 library(tidyverse)
+library(ggridges)
 ```
+
 
 
 ```{r}
@@ -16,3 +18,27 @@ ggplot(data=esdcomp)+
   geom_boxplot(aes(x=visits, y=complaints, color=gender))
 ```
 
+```{r}
+ggplot(data=esdcomp)+
+  geom_bar(aes(x=gender))
+```
+
+```{r}
+ggplot(data=esdcomp)+
+  geom_boxplot(aes(x=gender, y=revenue))
+```
+
+```{r}
+ggplot(data=esdcomp)+
+  geom_boxplot(aes(x=visits, y=hours, color=gender))
+```
+
+```{r}
+ggplot(data=esdcomp)+
+  geom_boxplot(aes(x=complaints, y=hours, color=gender))
+```
+
+```{r}
+ggplot(data=esdcomp)+
+  geom_density_ridges(aes(x=revenue, y=gender, fill=gender))
+```
