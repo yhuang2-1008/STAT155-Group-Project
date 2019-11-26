@@ -1,0 +1,18 @@
+---
+title: "psych of debt"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+library(faraway)
+library(tidyverse)
+```
+
+
+```{r}
+ggplot(data=esdcomp)+
+  geom_boxplot(aes(x=visits, y=complaints, color=gender))
+```
+
