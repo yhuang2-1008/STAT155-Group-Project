@@ -1,5 +1,5 @@
 ---
-title: "complaints"
+title: "Complaints about emergency room doctors "
 output:
   html_document:
     df_print: paged
@@ -12,33 +12,89 @@ library(ggridges)
 ```
 
 
+# Preliminary analysis 
+Dataset has 44 doctors serveyed in 1998. Variables examined are *visits*, *complaints*, *residency*, *gender*, *revenue*, and *hours*. We are trying to determine whether visits, gender, revenue, and hours worked predict number of complaints received. 
 
 ```{r}
 ggplot(data=esdcomp)+
   geom_boxplot(aes(x=visits, y=complaints, color=gender))
 ```
 
+* Women have less visists than men 
+* Median number of complaints are similar for both gender 
+* Upper quartile for complaints for men is larger than that of women  -- there is more variation in complaints for men, data is skewed right, higher maximum 
+* Possible reasons:
+  + more visits = more patients that could complain = working more hours (tired and slack -> get complains) 
+  + less female doctors 
+
+\
+
 ```{r}
 ggplot(data=esdcomp)+
   geom_bar(aes(x=gender))
 ```
+
+* Less female doctors 
+
+\
 
 ```{r}
 ggplot(data=esdcomp)+
   geom_boxplot(aes(x=gender, y=revenue))
 ```
 
+* Females make less revenue 
+* More variation in male revenue 
+* Maximum for male is a lot higher than that of women 
+
+\
+
 ```{r}
 ggplot(data=esdcomp)+
   geom_boxplot(aes(x=visits, y=hours, color=gender))
 ```
+
+* Women have less visits but worked more hours than men 
+* Median for both genders are very similar 
+* Minimum for men's working hour is higher than that of women's 
+
+\
 
 ```{r}
 ggplot(data=esdcomp)+
   geom_boxplot(aes(x=complaints, y=hours, color=gender))
 ```
 
-```{r}
+* Women get less complaints but work more hours, slightly more variation 
+* Men work more hours to begin with thus have more complaints
+
+\
+
+```{r,  warning=FALSE, message=FALSE}
 ggplot(data=esdcomp)+
   geom_density_ridges(aes(x=revenue, y=gender, fill=gender))
 ```
+
+* There is a more even distribution of revenue for male doctors than for female doctors 
+* Men make more in general (min and max)
+* Women's median income is 250, men is closer to 260/270. 
+
+\
+\
+\
+\
+\
+
+# STEP FORWARD
+See how the results come out then decided if we do a interaction effect 
+
+(@) lm model: complaints ~ visits + hours 
+(@) lm model: complaints ~ visits + hours + gender 
+(@) lm model: complaints ~ gender + revenue 
+(@) find R^2 for all models and explain in terms of the dataset 
+(@) summarize results 
+(@) talk about variables that we wished we had 
+(@) implications of the dataset and our prediction 
+
+
+
