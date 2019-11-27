@@ -9,6 +9,7 @@ output:
 library(faraway)
 library(tidyverse)
 library(ggridges)
+library(moderndive)
 ```
 
 
@@ -89,11 +90,86 @@ ggplot(data=esdcomp)+
 See how the results come out then decided if we do a interaction effect 
 
 (@) lm model: complaints ~ visits + hours 
+
+# Model for Number of Complaints Predicted by *Visits* & *Hours*
+```{r}
+lm_comp_visit_hour <- lm(complaints ~ visits + hours, data = esdcomp)
+
+get_regression_table(lm_comp_visit_hour)
+```
+
+##Intercept
+Average number of complaints is -2.714.
+
+##Visits
+For every addition of 1 visit on average there is a an increase of 0.003 in number of complaints. 
+
+##Hours
+For every addition of 1 more hour worked there is an increase of 0 to the number of complaints.
+
+
 (@) lm model: complaints ~ visits + hours + gender 
+
+#Complaints Predicted by *visits*, *hours*, *gender*
+
+```{r}
+lm_com_vis_hou_gen <- lm(complaints ~ visits + hours + gender, data= esdcomp)
+
+get_regression_table(lm_com_vis_hou_gen)
+```
+
+##Intercept
+Female doctors on average have a decrease of 2.956 in the number of complaints. 
+
+##Visits
+For every increase of 1 visit there is an increase of 0.003 in the number of complaints. 
+
+##Hours
+For every addition of 1 hour worked there is an increase of 0 in the number of complaints.
+
+##Male Gender
+Male doctors on average have a higher number of complaints of 0.355 when compared to female doctors. 
+
+
 (@) lm model: complaints ~ gender + revenue 
+
+#Complaints Predicted with *gender* & *revenue*
+```{r}
+lm_comp_gen_rev <- lm(complaints ~ gender + revenue, data=esdcomp)
+
+get_regression_table(lm_comp_gen_rev)
+```
+##Intercept
+A female doctor has a decrease of 0.292 in the number of complaints.
+
+##GenderMale
+Male doctors on average have an increase of 0.896 in the number of complaints when compared to female doctors.
+
+##Revenue
+For every 1 unit increase in revenue increases the number of complaints by 0.011.
+
+
 (@) find R^2 for all models and explain in terms of the dataset 
+
+#R^2 Values For Models
+```{r}
+#Model 1
+get_regression_summaries(lm_comp_visit_hour)
+
+#Model 2
+get_regression_summaries(lm_com_vis_hou_gen)
+
+#Model 3
+get_regression_summaries(lm_comp_gen_rev)
+```
 (@) summarize results 
 (@) talk about variables that we wished we had 
+
+One variable that we would have liked to have was the number of years that each doctor has worked to see how experience affects the number of complaints recieved. 
+
+Also, knowing the method that the complaint was given whether it was directly to the doctors or an indirect form. 
+
+
 (@) implications of the dataset and our prediction 
 
 
