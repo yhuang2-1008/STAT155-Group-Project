@@ -16,6 +16,8 @@ library(moderndive)
 # Preliminary analysis 
 Dataset has 44 doctors serveyed in 1998. Variables examined are *visits*, *complaints*, *residency*, *gender*, *revenue*, and *hours*. We are trying to determine whether visits, gender, revenue, and hours worked predict number of complaints received. 
 
+
+#Number of Complaints Vs. Gender & Number of Visits
 ```{r}
 ggplot(data=esdcomp)+
   geom_boxplot(aes(x=visits, y=complaints, color=gender))
@@ -29,7 +31,7 @@ ggplot(data=esdcomp)+
   + less female doctors 
 
 \
-
+#Gender Distribution
 ```{r}
 ggplot(data=esdcomp)+
   geom_bar(aes(x=gender))
@@ -38,7 +40,7 @@ ggplot(data=esdcomp)+
 * Less female doctors 
 
 \
-
+#Gender & Revenue
 ```{r}
 ggplot(data=esdcomp)+
   geom_boxplot(aes(x=gender, y=revenue))
@@ -49,6 +51,7 @@ ggplot(data=esdcomp)+
 * Maximum for male is a lot higher than that of women 
 
 \
+#Number of Complaints Vs. Hours Worked & Gender
 
 ```{r}
 ggplot(data=esdcomp)+
@@ -61,6 +64,8 @@ ggplot(data=esdcomp)+
 
 \
 
+#Number of Complaints vs Hours Worked & Gender
+
 ```{r}
 ggplot(data=esdcomp)+
   geom_boxplot(aes(x=complaints, y=hours, color=gender))
@@ -70,6 +75,8 @@ ggplot(data=esdcomp)+
 * Men work more hours to begin with thus have more complaints
 
 \
+
+#Gender vs. Revenue
 
 ```{r,  warning=FALSE, message=FALSE}
 ggplot(data=esdcomp)+
@@ -163,6 +170,11 @@ get_regression_summaries(lm_com_vis_hou_gen)
 get_regression_summaries(lm_comp_gen_rev)
 ```
 (@) summarize results 
+
+*Preliminary graphs showed us a disparity between revenue and number of visits between doctors that could possibly explain the differences in the number of complaints recieved. 
+
+*However, with the models created we saw that number of hours worked didn't play a signifanct role in explaining number of complaints. 
+
 (@) talk about variables that we wished we had 
 
 One variable that we would have liked to have was the number of years that each doctor has worked to see how experience affects the number of complaints recieved. 
@@ -171,6 +183,8 @@ Also, knowing the method that the complaint was given whether it was directly to
 
 
 (@) implications of the dataset and our prediction 
+
+* Many people have a distrust of the healthcare system and one way this distrust is shown is through complaints. How often and how many complaints are recieved by a doctor is thought to be based on the quality of health service provided, which can be affected by the number of visits and number of hours worked. 
 
 
 
