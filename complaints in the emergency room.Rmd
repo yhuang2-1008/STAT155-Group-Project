@@ -1,9 +1,12 @@
 ---
-title: "Complaints about emergency room doctors "
+title: "Complaints About Emergency Room Doctors "
+author: "Traci, Zixuan, and Jennifer"
 output:
   html_document:
     df_print: paged
 ---
+
+![Emergency Room Doctors](https://www.rd.com/wp-content/uploads/2016/07/1_secrets_emergency_andresr-1024x683.jpg)
 
 ```{r setup, include=FALSE}
 library(faraway)
@@ -13,22 +16,58 @@ library(moderndive)
 library(broom)
 ```
 
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
 
 # Preliminary analysis 
 Dataset has 44 doctors serveyed in 1998. Variables examined are *visits*, *complaints*, *residency*, *gender*, *revenue*, and *hours*. We are trying to determine whether visits, gender, revenue, and hours worked predict number of complaints received. 
 
+\
+\
+
 # Research question 
 Our main research question is whether gender is a major factor that affects the number of complaints received. 
 
-#Gender vs residency
-```{r}
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+
+## Gender vs residency
+```{r, results='hide', warning=FALSE, message=FALSE, echo=FALSE}
 ggplot(data=esdcomp)+
   geom_bar(mapping = aes(x=gender, fill=residency))
 ```
-*More man on residency training, however, there is more man in our data
+* More man on residency training, however, there is more man in our data
 
-#Number of Complaints Vs. Gender & Number of Visits
-```{r}
+\
+\
+\
+\
+\
+\
+\
+
+## Number of Complaints Vs. Gender & Number of Visits
+```{r, results='hide', warning=FALSE, message=FALSE, echo=FALSE}
 ggplot(data=esdcomp)+
   geom_boxplot(aes(x=visits, y=complaints, color=gender))
 ```
@@ -41,9 +80,16 @@ ggplot(data=esdcomp)+
   + less female doctors 
 
 \
-#Number of Complaints Vs. Hours Worked & Gender
+\
+\
+\
+\
+\
+\
 
-```{r}
+## Number of Complaints Vs. Hours Worked & Gender
+
+```{r, results='hide', warning=FALSE, message=FALSE, echo=FALSE}
 ggplot(data=esdcomp)+
   geom_boxplot(aes(x=visits, y=hours, color=gender))
 ```
@@ -54,10 +100,17 @@ ggplot(data=esdcomp)+
 * Men work more hours to begin with thus have more complaints
 
 \
+\
+\
+\
+\
+\
 
-#Gender vs. Revenue
+## Gender vs. Revenue
 
-```{r,  warning=FALSE, message=FALSE}
+Density plot of *gender* vs *revenue*
+
+```{r, results='hide', warning=FALSE, message=FALSE, echo=FALSE}
 ggplot(data=esdcomp)+
   geom_density_ridges(aes(x=revenue, y=gender, fill=gender))
 ```
@@ -66,7 +119,16 @@ ggplot(data=esdcomp)+
 * Men make more in general (min and max)
 * Women's median income is 250, men is closer to 260/270. 
 
-```{r}
+\
+\
+\
+\
+\
+\
+
+Boxplot of *gender* vs *revenue*
+
+```{r, results='hide', warning=FALSE, message=FALSE, echo=FALSE}
 ggplot(data=esdcomp)+
   geom_boxplot(aes(x=gender, y=revenue))
 ```
@@ -74,97 +136,134 @@ ggplot(data=esdcomp)+
 * Females make less revenue 
 * More variation in male revenue 
 * Maximum for male is a lot higher than that of women 
+
+\
+\
 \
 \
 \
 \
 \
 
-# STEP FORWARD
-See how the results come out then decided if we do a interaction effect 
+# Modeling predcition
 
-(@) lm model: complaints ~ visits + hours 
+\
 
-# New dataset 
-```{r}
+### New dataset 
+Since the data of hours and visits are too large compare with the data for number of complaints. So we created new dataset by dividing visits and hours
+
+```{r, results='hide', warning=FALSE, message=FALSE, echo=FALSE}
 esdcomp_final <- esdcomp %>% 
   mutate(visits_hundred = visits/100, hours_hundred = hours/100) 
 ```
-*Since the data of hours and visits are too large compare with the data for number of complaints. So we created new dataset by dividing visits and hours
 
-# Model for Number of Complaints Predicted by *Visits* & *Hours*
-```{r}
+\
+\
+\
+\
+\
+\
+\
+
+#### Model for Number of Complaints Predicted by *Visits* * *Hours*
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 lm_comp_visit_hour <- lm(complaints ~ visits_hundred *hours_hundred, data = esdcomp_final)
 
 get_regression_table(lm_comp_visit_hour)
 ```
 
-##Intercept
+a) Intercept
 Average number of complaints is 6.013, not taking account the gender of the doctor.
 
-##Visits
+b) Visits
 For every addition of 100 visit on average there is a a decrease of 0.225 in number of complaints by holding hours constant. 
 
-##Hours
+c) Hours
 For every addition of 100 more hour worked there is a decrease of 0.652 to the number of complaints by holding visits constant.
 
-##Visits:hours
+d) Visits:hours
 When hours worked and number of visits are both present there is an increase of 0.034 for every 1 unit increase in both variables.
 
-##Intention
+e) Intention
 Without taking gender into account, will visits abnd hours affect number of complaints the doctors get.
 
+\
+\
+\
+\
+\
+\
+\
 
+#### Model for Number of Complaints Predicted by *Visits* + *Hours* + *Gender* 
 
-(@) lm model: complaints ~ visits + hours + gender 
+Complaints Predicted by *visits*, *hours*, *gender*
 
-#Complaints Predicted by *visits*, *hours*, *gender*
-
-```{r}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 lm_com_vis_hou_gen <- lm(complaints ~ visits_hundred + hours_hundred + gender, data= esdcomp_final)
 
 get_regression_table(lm_com_vis_hou_gen)
 ```
 
-##Intercept
+a) Intercept
 Female doctors on average have a decrease of 2.956 in the number of complaints. 
 
-##Visits
+b) Visits
 For every increase of 100 visit there is an increase of 0.262 in the number of complaints. 
 
-##Hours
+c) Hours
 For every addition of 100 hour worked there is an decrease of 0.014 in the number of complaints.
 
-##Male Gender
+d) Male Gender
 Male doctors on average have a higher number of complaints of 0.355 when compared to female doctors. 
 
-#Intention
+e) Intention
 In comparison to the previous one, how gender affects the number complaints.
 
-(@) lm model: complaints ~ gender + revenue 
+\
+\
+\
+\
+\
+\
+\
 
-#Complaints Predicted with *gender* & *revenue*
-```{r}
+#### Model for Number of Complaints Predicted by *Gender* + *Revenue*  
+
+Complaints Predicted with *gender* & *revenue*
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 lm_comp_gen_rev <- lm(complaints ~ gender + revenue, data=esdcomp_final)
 
 get_regression_table(lm_comp_gen_rev)
 ```
-##Intercept
+
+a) Intercept
 A female doctor has a decrease of 0.292 in the number of complaints.
 
-##GenderMale
+b) GenderMale
 Male doctors on average have an increase of 0.896 in the number of complaints when compared to female doctors.
 
-##Revenue
+c) Revenue
 For every 1 unit increase in revenue increases the number of complaints by 0.011.
 
-##Intention
+d) Intention
 To observe how much the doctors earned, taking gender into consideration to predict number of complants. 
 
-(@) find R^2 for all models and explain in terms of the dataset 
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
 
-#R^2 Values For Models
-```{r}
+#### $R^2$ for all models 
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 #Model 1
 get_regression_summaries(lm_comp_visit_hour)
 
@@ -174,31 +273,85 @@ get_regression_summaries(lm_com_vis_hou_gen)
 #Model 3
 get_regression_summaries(lm_comp_gen_rev)
 ```
-*41% of the variability in number of complaints is explained by the variability in number of hours worked and number of visits.
 
-*35% of the variability in number of complaints is explained by the variability in number of hours worked, number of visits and gender.
+a) 41% of the variability in number of complaints is explained by the variability in number of hours worked and number of visits.
 
-*4.6% of the variability in number of complaints is explained by the variability in number of revenue earned and gender.
+b) 35% of the variability in number of complaints is explained by the variability in number of hours worked, number of visits and gender.
 
-(@) summarize results 
+c) 4.6% of the variability in number of complaints is explained by the variability in number of revenue earned and gender.
 
-*Preliminary graphs showed us a disparity between revenue and number of visits between doctors that could possibly explain the differences in the number of complaints recieved. 
+\
+\
+\
+\
+\
+\
+\
 
-*According to our model, gender plays a role in predicting number of complaints, revenued eared does not affect much. The interaction effect number of hours worked and number of visits plays a more significant role in predicting the number of complaints.
+# Conclusion
 
-(@) talk about variables that we wished we had 
+* Preliminary graphs showed us a disparity between revenue and number of visits between doctors that could possibly explain the differences in the number of complaints recieved. 
 
-One variable that we would have liked to have was the number of years that each doctor has worked to see how experience affects the number of complaints recieved. 
+* According to our model, gender plays a role in predicting number of complaints, revenued eared does not affect much. The interaction effect number of hours worked and number of visits plays a more significant role in predicting the number of complaints.
 
-Also, knowing the method that the complaint was given whether it was directly to the doctors or an indirect form. 
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
 
-It would also be interesting to have a variable of the success and failures of surgeries.
 
-(@) implications of the dataset and our prediction 
+# Variables that we wish we had 
+
+* One variable that we would have liked to have was the number of years that each doctor has worked to see how experience affects the number of complaints recieved. 
+
+* Also, knowing the method that the complaint was given whether it was directly to the doctors or an indirect form. 
+
+* It would also be interesting to have a variable of the success and failures of surgeries.
+
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+
+
+# Implications of dataset and prediction
 
 * Many people have a distrust of the healthcare system and one way this distrust is shown is through complaints. How often and how many complaints are recieved by a doctor is thought to be based on the quality of health service provided, which can be affected by the number of visits and number of hours worked. Gender also plays a role in this phenomenon. Are you more likely to complain to a male doctor or a female doctor? Our society has shaped women's impression into something weaker and more approachable than that of men.
 
-*Sometimes number of visits and number of hours worked does not have a linear relationship (i.e. visits increase as hours increase). Thus the complaints that doctors receive may not be representative of their quality of service.
+* Sometimes number of visits and number of hours worked does not have a linear relationship (i.e. visits increase as hours increase). Thus the complaints that doctors receive may not be representative of their quality of service.
 
-*In our age, we rely on "Yelp" reviews so much and doctors often worry about their own reviews. Thus having lower number of complaints becomes a competition in the industry.
+* In our age, we rely on "Yelp" reviews so much and doctors often worry about their own reviews. Thus having lower number of complaints becomes a competition in the industry.
+
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
 
