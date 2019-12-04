@@ -79,7 +79,7 @@ Our main research question is whether gender is a major factor that affects the 
 ggplot(data=esdcomp)+
   geom_bar(mapping = aes(x=gender, fill=residency))
 ```
-* More man on residency training, however, there is more man in our data
+* More male doctors are in residency training, however, there is more men in our data.
 
 \
 \
@@ -96,7 +96,7 @@ ggplot(data=esdcomp)+
 ```
 
 * Women have less visists than men 
-* Median number of complaints are similar for both gender 
+* Median number of complaints are similar for both genders 
 * Upper quartile for complaints for men is larger than that of women  -- there is more variation in complaints for men, data is skewed right, higher maximum 
 * Possible reasons:
   + more visits = more patients that could complain = working more hours (tired and slack -> get complains) 
@@ -120,7 +120,7 @@ ggplot(data=esdcomp)+
 * Women have less visits but worked more hours than men, slightly more variation 
 * Median for both genders are very similar 
 * Minimum for men's working hour is higher than that of women's 
-* Men work more hours to begin with thus have more complaints
+* Men work more hours to begin with thus they have more complaints
 
 \
 \
@@ -173,7 +173,7 @@ ggplot(data=esdcomp)+
 \
 
 ### New dataset 
-Since the data of hours and visits are too large compare with the data for number of complaints. So we created new dataset by dividing visits and hours
+Since the data of hours and visits is too large to compare with the data for number of complaints we created a new dataset by dividing visits and hours by one hundred.
 
 ```{r, results='hide', warning=FALSE, message=FALSE, echo=FALSE}
 esdcomp_final <- esdcomp %>% 
@@ -195,20 +195,20 @@ lm_comp_visit_hour <- lm(complaints ~ visits_hundred *hours_hundred, data = esdc
 get_regression_table(lm_comp_visit_hour)
 ```
 
-a) Intercept
+a) Intercept:
 Average number of complaints is 6.013, not taking account the gender of the doctor.
 
-b) Visits
+b) Visits:
 For every addition of 100 visit on average there is a a decrease of 0.225 in number of complaints by holding hours constant. 
 
-c) Hours
+c) Hours:
 For every addition of 100 more hour worked there is a decrease of 0.652 to the number of complaints by holding visits constant.
 
-d) Visits:hours
+d) Visits:Hours:
 When hours worked and number of visits are both present there is an increase of 0.034 for every 1 unit increase in both variables.
 
 e) Intention
-Without taking gender into account, will visits abnd hours affect number of complaints the doctors get.
+Without taking gender into account, will visits and hours affect the number of complaints the doctors get.
 
 \
 \
@@ -228,20 +228,20 @@ lm_com_vis_hou_gen <- lm(complaints ~ visits_hundred + hours_hundred + gender, d
 get_regression_table(lm_com_vis_hou_gen)
 ```
 
-a) Intercept
+a) Intercept:
 Female doctors on average have a decrease of 2.956 in the number of complaints. 
 
-b) Visits
+b) Visits:
 For every increase of 100 visit there is an increase of 0.262 in the number of complaints. 
 
-c) Hours
+c) Hours:
 For every addition of 100 hour worked there is an decrease of 0.014 in the number of complaints.
 
-d) Male Gender
+d) Male Gender:
 Male doctors on average have a higher number of complaints of 0.355 when compared to female doctors. 
 
-e) Intention
-In comparison to the previous one, how gender affects the number complaints.
+e) Intention:
+In comparison to the previous one, this shows how gender affects the number complaints.
 
 \
 \
@@ -260,16 +260,16 @@ lm_comp_gen_rev <- lm(complaints ~ gender + revenue, data=esdcomp_final)
 get_regression_table(lm_comp_gen_rev)
 ```
 
-a) Intercept
+a) Intercept:
 A female doctor has a decrease of 0.292 in the number of complaints.
 
-b) GenderMale
+b) GenderMale:
 Male doctors on average have an increase of 0.896 in the number of complaints when compared to female doctors.
 
-c) Revenue
+c) Revenue:
 For every 1 unit increase in revenue increases the number of complaints by 0.011.
 
-d) Intention
+d) Intention:
 To observe how much the doctors earned, taking gender into consideration to predict number of complants. 
 
 \
@@ -337,7 +337,7 @@ c) 4.6% of the variability in number of complaints is explained by the variabili
 
 * One variable that we would have liked to have was the number of years that each doctor has worked to see how experience affects the number of complaints recieved. 
 
-* Also, knowing the method that the complaint was given whether it was directly to the doctors or an indirect form. 
+* Also, knowing the method that the complaint was given. For example, whether complaints were given directly to the doctors or an indirect form. 
 
 * It would also be interesting to have a variable of the success and failures of surgeries.
 
