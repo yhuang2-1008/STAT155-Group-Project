@@ -56,7 +56,7 @@ Our main research question is whether gender is a major factor that affects the 
 ggplot(data=esdcomp)+
   geom_bar(mapping = aes(x=gender, fill=residency))
 ```
-* More male doctors are in residency training, however, there is more men in our data.
+* More male doctors are in residency training, however, there are more men in our data.
 
 \
 \
@@ -69,12 +69,10 @@ ggplot(data=esdcomp)+
 ## Number of Complaints Vs. Gender & Number of Visits
 ```{r, results='hide', warning=FALSE, message=FALSE, echo=FALSE}
 ggplot(data=esdcomp)+
-  geom_boxplot(aes(x=visits, y=complaints, color=gender))
+  geom_point(aes(x=visits, y=complaints, color=gender))
 ```
 
-* Women have less visists than men 
-* Median number of complaints are similar for both genders 
-* Upper quartile for complaints for men is larger than that of women  -- there is more variation in complaints for men, data is skewed right, higher maximum 
+* Women have less visists than men and the trend lines show that women ().
 * Possible reasons:
   + more visits = more patients that could complain = working more hours (tired and slack -> get complains) 
   + less female doctors 
@@ -91,13 +89,15 @@ ggplot(data=esdcomp)+
 
 ```{r, results='hide', warning=FALSE, message=FALSE, echo=FALSE}
 ggplot(data=esdcomp)+
-  geom_boxplot(aes(x=visits, y=hours, color=gender))
+  geom_boxplot(aes(x=visits, y=complaints, color=gender))
 ```
 
-* Women have less visits but worked more hours than men, slightly more variation 
-* Median for both genders are very similar 
+* Women have less visits but worked more hours than men, slightly more variation in data for male doctors
+* Median number of complaints for both genders are very similar 
 * Minimum for men's working hour is higher than that of women's 
 * Men work more hours to begin with thus they have more complaints
+
+
 
 \
 \
@@ -126,11 +126,11 @@ ggplot(data=esdcomp)+
 \
 \
 
-Boxplot of *gender* vs *revenue*
+Boxplot of *complaints* vs *revenue*, *gender*
 
 ```{r, results='hide', warning=FALSE, message=FALSE, echo=FALSE}
 ggplot(data=esdcomp)+
-  geom_boxplot(aes(x=gender, y=revenue))
+  geom_point(aes(x=revenue, y=complaints, color=gender))
 ```
 
 * Females make less revenue 
@@ -171,21 +171,21 @@ lm_comp_visit_hour <- lm(complaints ~ visits_hundred *hours_hundred, data = esdc
 
 get_regression_table(lm_comp_visit_hour)
 ```
+a) Intention:
+The two variables we felt should predict number of complaints were hours worked and number of visits, because a doctor that sees more patients and works more hours will encounter more people that could complain. When visits and hours are looked at seperately they decrease the number of complaints, but with the interaction effect they increase the number of complaints.
 
-a) Intercept:
+b) Intercept:
 Average number of complaints is 6.013, not taking account the gender of the doctor.
 
-b) Visits:
+c) Visits:
 For every addition of 100 visit on average there is a a decrease of 0.225 in number of complaints by holding hours constant. 
 
-c) Hours:
+d) Hours:
 For every addition of 100 more hour worked there is a decrease of 0.652 to the number of complaints by holding visits constant.
 
-d) Visits:Hours:
-When hours worked and number of visits are both present there is an increase of 0.034 for every 1 unit increase in both variables.
+e) Visits:Hours:
+When hours worked and number of visits are both present there is an increase of 0.034 for every 1 unit increase in both variables. 
 
-e) Intention
-Without taking gender into account, will visits and hours affect the number of complaints the doctors get.
 
 \
 \
@@ -204,21 +204,22 @@ lm_com_vis_hou_gen <- lm(complaints ~ visits_hundred + hours_hundred + gender, d
 
 get_regression_table(lm_com_vis_hou_gen)
 ```
+a) Intention:
+To show how gender affects the ability of the model to predict number of complaints with hours worked and number of visits. Is a female doctor versus a male doctor working similar hours and seeing a similar number of patients more likely to receive complaints?
 
-a) Intercept:
+b) Intercept:
 Female doctors on average have a decrease of 2.956 in the number of complaints. 
 
-b) Visits:
+c) Visits:
 For every increase of 100 visit there is an increase of 0.262 in the number of complaints. 
 
-c) Hours:
+d) Hours:
 For every addition of 100 hour worked there is an decrease of 0.014 in the number of complaints.
 
-d) Male Gender:
+e) Male Gender:
 Male doctors on average have a higher number of complaints of 0.355 when compared to female doctors. 
 
-e) Intention:
-In comparison to the previous one, this shows how gender affects the number complaints.
+
 
 \
 \
@@ -236,18 +237,19 @@ lm_comp_gen_rev <- lm(complaints ~ gender + revenue, data=esdcomp_final)
 
 get_regression_table(lm_comp_gen_rev)
 ```
+a) Intention:
+To observe the effect of a doctors gender and revenue on predicting the number of complaints.  
 
-a) Intercept:
+b) Intercept:
 A female doctor has a decrease of 0.292 in the number of complaints.
 
-b) GenderMale:
+c) GenderMale:
 Male doctors on average have an increase of 0.896 in the number of complaints when compared to female doctors.
 
-c) Revenue:
+d) Revenue:
 For every 1 unit increase in revenue increases the number of complaints by 0.011.
 
-d) Intention:
-To observe how much the doctors earned, taking gender into consideration to predict number of complants. 
+
 
 \
 \
