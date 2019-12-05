@@ -6,6 +6,29 @@ output:
     df_print: paged
 ---
 
+Feedback from Lisa:  
+
+(@) Be sure to exclude your R code. I say how to do that in the project documentation on Moodle.
+
+* Jennifer: we don't need to worry about this one because I already made the edits. 
+
+(@) If you want to look at visits vs. complaints, you will need to use a scatterplot. The boxplot is not doing the right thing.
+
+(@) Stay focused on your research question - the graphs should be relevant to that question as well. They are all nice graphs, but not all of them seem to be related to your main question. So, be sure to tie each of them back to the main question.
+
+(@) It looks like you have some interesting models, but it would be helpful if you provided some reasoning as to why you chose to fit the ones you did. You also don't necessarily have to explain every single coefficient from every single model. Focus on the key takeaways from the model. 
+
+\
+\
+\
+\
+\
+\
+\
+\
+
+
+
 ![Emergency Room Doctors](https://www.rd.com/wp-content/uploads/2016/07/1_secrets_emergency_andresr-1024x683.jpg)
 
 ```{r setup, include=FALSE}
