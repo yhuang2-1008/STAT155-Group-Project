@@ -6,17 +6,6 @@ output:
     df_print: paged
 ---
 
-Feedback from Lisa:  
-
-(@) Be sure to exclude your R code. I say how to do that in the project documentation on Moodle.
-
-* Jennifer: we don't need to worry about this one because I already made the edits. 
-
-(@) If you want to look at visits vs. complaints, you will need to use a scatterplot. The boxplot is not doing the right thing.
-
-(@) Stay focused on your research question - the graphs should be relevant to that question as well. They are all nice graphs, but not all of them seem to be related to your main question. So, be sure to tie each of them back to the main question.
-
-(@) It looks like you have some interesting models, but it would be helpful if you provided some reasoning as to why you chose to fit the ones you did. You also don't necessarily have to explain every single coefficient from every single model. Focus on the key takeaways from the model. 
 
 \
 \
@@ -92,11 +81,15 @@ ggplot(data=esdcomp)+
 
 ## Number of Complaints Vs. Gender & Number of Visits
 ```{r, results='hide', warning=FALSE, message=FALSE, echo=FALSE}
-ggplot(data=esdcomp)+
-  geom_point(aes(x=visits, y=complaints, color=gender))
+lm_vc <- lm(complaints ~ visits, data=esdcomp_final)
+augment(lm_vc, data=esdcomp_final)%>%
+ggplot()+
+  geom_jitter(aes(x=visits, y=complaints, color=gender),alpha=0.5)+
+  geom_line(aes(x= visits, y=.fitted, color = gender))
 ```
 
-* Women have less visists than men and the trend lines show that women ().
+* Women have less visists than men and the trend lines show that visits ad complaints have a linear and postive relatiosnhip. 
+* The trend line for women and men are similar to one another.
 * Possible reasons:
   + more visits = more patients that could complain = working more hours (tired and slack -> get complains) 
   + less female doctors 
@@ -109,17 +102,19 @@ ggplot(data=esdcomp)+
 \
 \
 
-## Number of Complaints Vs. Hours Worked & Gender
+## Number of Complaints Vs. Revenue & Gender
 
 ```{r, results='hide', warning=FALSE, message=FALSE, echo=FALSE}
-ggplot(data=esdcomp)+
-  geom_boxplot(aes(x=visits, y=complaints, color=gender))
+lm_rc <- lm(complaints ~ revenue + gender, data=esdcomp_final)
+
+augment(lm_rc, data=esdcomp_final)%>%
+ggplot()+
+  geom_jitter(aes(x=revenue, y=complaints, color=gender))+
+  geom_line(aes(x=revenue, y=.fitted, color=gender))
 ```
 
-* Women have less visits but worked more hours than men, slightly more variation in data for male doctors
-* Median number of complaints for both genders are very similar 
-* Minimum for men's working hour is higher than that of women's 
-* Men work more hours to begin with thus they have more complaints
+* Women make less revenue than men and also have a lower number of complaints.
+* Men have a higher maximum revenue than women.
 
 
 
