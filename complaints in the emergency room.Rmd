@@ -79,6 +79,7 @@ Our main research question is whether gender is a major factor that affects the 
 ggplot(data=esdcomp)+
   geom_bar(mapping = aes(x=gender, fill=residency))
 ```
+
 * More male doctors are in residency training, however, there are more men in our data.
 
 \
